@@ -12,13 +12,15 @@ def rock_paper_scissors():
     win_lose={"won": 0, "lost": 0, "drew": 0}
     numbers={0:3,10:2,20:1}
     while 1==1:
-            language=int(input("English: 0 Francais:1 "))
-            if language==0 or language==1:
+            language=input("English: 0 Francais:1 ")
+            if language=="0" or language=="1":
                 break
+    language=int(language)
     while 1==1:
-            rounds=int(input(["what score should the game be played to? ","combien de fois le jeu doit-il être joué? "][language]))
-            if isinstance(rounds,int):
+            rounds=input(["what score should the game be played to? ","combien de fois le jeu doit-il être joué? "][language])
+            if rounds.isnumeric():
                 break
+    rounds=int(rounds)
     while win_lose["won"]<rounds and win_lose["lost"]<rounds:
         computer_in=str(random.randint(0,2))
         ret, frame = cap.read()
@@ -28,7 +30,7 @@ def rock_paper_scissors():
         data[0] = normalized_image
         prediction = model.predict(data)
         cv2.imshow('frame', frame)
-        if n%50==0 or (n-10)%50==0 or (n-20)%50==0:
+        if n%50==0 or n%50==20 or n%50==20:
             print(numbers[n%50])
         if n%50==30:
             if prediction[0,0]>prediction[0,1] and prediction[0,0]>prediction[0,2]:
